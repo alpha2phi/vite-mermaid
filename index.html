@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+    <title>Text-based Diagramming using Vite and Mermaid</title>
+
+    <script>
+      mermaid.initialize({ startOnLoad: true });
+
+      function showGraph(name, id) {
+        fetch("/diagrams/" + name)
+          .then((response) => response.text())
+          .then((data) => {
+            var svg = mermaid.render("svg_" + id, data);
+            var elem = document.getElementById("g1");
+            elem.innerHTML = svg;
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function (event) {
+        showGraph("flowchart.mmd", "g1");
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Flowchart</h1>
+    <div id="g1"></div>
+  </body>
+</html>
